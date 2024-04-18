@@ -4,22 +4,28 @@
 using namespace std;
 
 int count_letters(string str) {
-    int lower_count = 0;
-    int upper_count = 0;
-
+    int count = 0;
     for (char c : str) {
-        if (islower(c)) {
-            lower_count++;
-        }
-        else if (isupper(c)) {
-            upper_count++;
+        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+            count++;
         }
     }
+    return count;
+}
 
-    cout << "Lowercase letters: " << lower_count << endl;
-    cout << "Uppercase letters: " << upper_count << endl;
-
-    return lower_count + upper_count;
+int count_words(string str) {
+    int count = 0;
+    bool inWord = false;
+    for (char c : str) {
+        if (c == ' ') {
+            inWord = false;
+        }
+        else if (!inWord) {
+            count++;
+            inWord = true;
+        }
+    }
+    return count;
 }
 
 int main() {
@@ -27,7 +33,9 @@ int main() {
     cout << "Enter a string: ";
     getline(cin, input);
 
-    int total_count = count_letters(input);
+    int letters = count_letters(input);
+    int words = count_words(input);
 
-    cout << "Total number of letters: " << total_count << endl;
+    cout << "Number of letters: " << letters << endl;
+    cout << "Number of words: " << words << endl;
 }
